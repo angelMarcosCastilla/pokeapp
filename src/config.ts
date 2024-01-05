@@ -1,0 +1,1 @@
+export const BASE_IMG_URL = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon`
