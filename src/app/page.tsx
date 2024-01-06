@@ -1,19 +1,18 @@
-import { PokemonAPI } from "@/types/pokemon";
+import { api } from "@/services";
 import { parsedPokemon } from "@/utils/pokemons";
+import Link from "next/link";
 
 export default async function Home() {
-  const responses = await fetch(
-    "https://pokeapi.co/api/v2/pokemon?limit=200&offset=0"
-  );
-  const data: PokemonAPI = await responses.json();
+  const data = await api.pokemons.getAll();
   const pokemons = parsedPokemon(data.results);
   return (
     <>
       <section className="grid grid-cols-3 max-w-[1000px] mx-auto gap-4">
         {pokemons.map((pokemons) => (
-          <div
+          <Link
+            href={`/${pokemons.name}`}
             key={pokemons.name}
-            className="overflow-hidden relative h-[200px] grid place-content-center border"
+            className="overflow-hidden relative h-[200px] grid place-content-center border "
           >
             <img
               className="blur-3xl  h-[300px]  "
@@ -24,7 +23,7 @@ export default async function Home() {
               <h2>{pokemons.name}</h2>
               <img src={pokemons.image} alt={`image of ${pokemons.name}`} />
             </div>
-          </div>
+          </Link>
         ))}
       </section>
     </>
