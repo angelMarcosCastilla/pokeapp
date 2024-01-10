@@ -1,6 +1,8 @@
+import RadarChartPokemon from "@/components/Charts/RadarChart";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Modal from "@/components/Modal";
 import { api } from "@/services";
+import type { PokemonDetails } from "@/types/pokemon";
 import React, { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
@@ -10,22 +12,30 @@ interface Props {
 }
 
 async function FetchingPokemons({ name }: { name: string }) {
-  const pokemon = await api.pokemons.getByName(name);
+  const pokemon: PokemonDetails = await api.pokemons.getByName(name);
 
   return (
-    <article>
-      <header className="flex justify-center ">
+    <article className="flex justify-between items-center ">
+      <header className="flex items-center gap-y-2 justify-center flex-col ">
         <img
-          className="size-52"
+          className="size-48"
           src={pokemon.sprites.other.dream_world.front_default}
-          alt={`image of  ${pokemon.forms.name}`}
+          alt={`image of  ${pokemon.name}`}
         />
+        <h2 className="text-xl">{pokemon.name}</h2>
       </header>
       <img
         src={pokemon.sprites.other.dream_world.front_default}
-        alt={`image of  ${pokemon.forms.name}`}
-        className="absolute top-0  left-[50%] translate-x-[-50%] -z-10 blur-3xl size-[260px]"
+        alt={`image of  ${pokemon.name}`}
+        className="absolute left-0   -z-10 blur-3xl size-[260px]"
       />
+      <div>
+        <div className="w-[450px] h-[450px]">
+          <div className="w-full h-full">
+            <RadarChartPokemon name={pokemon.name} data={pokemon.stats} id={pokemon.id} />
+          </div>
+        </div>
+      </div>
     </article>
   );
 }
