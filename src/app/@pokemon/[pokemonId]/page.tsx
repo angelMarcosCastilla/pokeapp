@@ -29,7 +29,7 @@ async function FetchingPokemons({ name }: { name: string }) {
         alt={`image of  ${pokemon.name}`}
         className="absolute left-0   -z-10 blur-3xl size-[260px]"
       />
-      <div>
+      <div> 
         <div className="w-[450px] h-[450px]">
           <div className="w-full h-full">
             <RadarChartPokemon name={pokemon.name} data={pokemon.stats} id={pokemon.id} />
@@ -44,7 +44,7 @@ export default async function Page({ params: { pokemonId } }: Props) {
   return (
     <Modal
       className="max-w-[800px] relative bg-black border  w-[90%] p-7 z-[80] h-[500px]"
-      hrefClose="/"
+      hrefClose="/"  
     >
       <Suspense fallback={<LoadingSpinner />}>
         <FetchingPokemons name={pokemonId} />

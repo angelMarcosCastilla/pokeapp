@@ -14,7 +14,7 @@ export default function Modal({ children, className, hrefClose }: Props) {
 
   const handleClose = (e:React.MouseEvent<HTMLElement> ) => {
     e.stopPropagation();
-    router.push(hrefClose)
+    router.push(hrefClose, {scroll: false});
   };
   return (
     <section
